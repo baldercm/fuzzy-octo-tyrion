@@ -17,7 +17,8 @@
           msg: 'Nombre obligatorio'
         }
       },
-      url: 'api/cursos'
+      url: 'api/cursos',
+      idAttribute: "_id"
     });
   });
 

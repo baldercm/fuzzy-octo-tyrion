@@ -11,3 +11,4 @@ define ['backbone'], (Backbone) ->
 				minLength: 1
 				msg: 'Nombre obligatorio'
 		url: 'api/cursos'
+		idAttribute: "_id"

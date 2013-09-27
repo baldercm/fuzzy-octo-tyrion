@@ -1,4 +1,4 @@
-define [], (require) ->
+define (require) ->
 	'use strict'
 	{
 		curso		: require 'tpl!templatesPath/curso.html'

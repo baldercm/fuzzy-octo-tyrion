@@ -3,7 +3,17 @@
 var express = require("express"),
     http = require("http"),
     port = (process.env.PORT || 8001),
-    server = module.exports = express();
+    server = module.exports = express(),
+    mongoose = require('mongoose');
+
+
+mongoose.connect('mongodb://localhost/nodejs');
+
+var cursoSchema = mongoose.Schema({
+  nombre: String
+});
+
+var Curso = mongoose.model('Curso', cursoSchema);
 
 // SERVER CONFIGURATION
 // ====================
@@ -18,12 +28,19 @@ server.configure(function () {
 });
 
 server.get("/api/cursos", function(req, res) {
-  var cursos = [
+//   var db = mongoose.connection;
+//   db.on('error', console.error.bind(console, 'connection error:'));
+//   db.once('open', function callback () {
+// 
+//   });
+  var cursosMock = [
     {id : 1, nombre : 'Curso 12-13'},
     {id : 2, nombre : 'Curso 13-14'},
   ]
-  console.log("Get " + JSON.stringify(cursos));
-  res.send(cursos);
+  var query = Curso.find(function (err, cursos) {
+    console.log("Get " + JSON.stringify(cursos));
+    res.send(cursos);
+  });
 });
 
 // SERVER

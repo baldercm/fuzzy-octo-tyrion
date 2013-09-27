@@ -8,6 +8,7 @@ require.config
 		wreqr      : '//cdnjs.cloudflare.com/ajax/libs/backbone.wreqr/0.1.0/backbone.wreqr.min'
 		marionette : '//cdnjs.cloudflare.com/ajax/libs/backbone.marionette/1.1.0-bundled/backbone.marionette.min'
 		bootstrap  : '//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min'
+		tpl        : 'lib/tpl',
 		templatesPath : '../templates'
 	shim:
 		'underscore':

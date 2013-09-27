@@ -1,5 +1,5 @@
 (function() {
-  requirejs.config({
+  require.config({
     paths: {
       jquery: '//cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min',
       underscore: '//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min',
@@ -9,7 +9,7 @@
       wreqr: '//cdnjs.cloudflare.com/ajax/libs/backbone.wreqr/0.1.0/backbone.wreqr.min',
       marionette: '//cdnjs.cloudflare.com/ajax/libs/backbone.marionette/1.1.0-bundled/backbone.marionette.min',
       bootstrap: '//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min',
-      tpl : 'lib/tpl',
+      tpl: 'lib/tpl',
       templatesPath: '../templates'
     },
     shim: {
