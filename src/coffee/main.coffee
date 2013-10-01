@@ -8,7 +8,9 @@ require.config
     "bootstrap"          : "lib/bootstrap"
     "json2"              : "lib/json2"
     "jquery"             : "lib/jquery"
+    "jquery.spin"        : "lib/jquery.spin"
     "marionette"         : "lib/backbone.marionette.amd"
+    "spin"               : "lib/spin"
     "tpl"                : "lib/tpl"
     "underscore"         : "lib/underscore"
     "templatesPath"      : "../templates"
@@ -20,6 +22,7 @@ require.config
       deps: ["jquery", "underscore", "json2"]
       exports: "Backbone"
     "bootstrap": ["jquery"]
+    "jquery.spin": ["spin", "jquery"]
 
 require ["app"], (App) ->
   "use strict"
