@@ -1,4 +1,4 @@
-module.exports = (grunt)->
+module.exports = (grunt) ->
   'use strict'
   grunt.initConfig
     coffee:
@@ -17,12 +17,17 @@ module.exports = (grunt)->
       build:
         files: [
           {expand: true, cwd: 'generated', src: ['**/*.js'], dest: 'public'},
+          {expand: true, flatten: true, cwd: 'lib', src: ['**/*.js'], dest: 'public/js/lib'},
           {expand: true, cwd: 'src', src: ['**/*.css'], dest: 'public'},
           {expand: true, cwd: 'src', src: ['**/*.html'], dest: 'public'}
         ]
       js:
         files: [
           {expand: true, cwd: 'generated', src: ['**/*.js'], dest: 'public'}
+        ]
+      jslib:
+        files: [
+          {expand: true, flatten: true, cwd: 'lib', src: ['**/*.js'], dest: 'public/js/lib'}
         ]
       css:
         files: [
@@ -44,15 +49,19 @@ module.exports = (grunt)->
         files: 'src/coffee/**/*.coffee'
         tasks: ['coffee:build', 'copy:js']
         options:
-          spawn: false,
+          spawn: false
+      server:
+        files:  [ '**/*.js', '**/*.coffee' ]
+        tasks:  [ 'coffee:build', 'copy:js', 'copy:jslib', 'server' ]
+        options:
+          nospawn: true
     clean: ['generated', 'public']
 
-#grunt.event.on('watch', function(action, filepath) {
-#  grunt.config('coffee.watch.src', filepath);
-#  grunt.config('copy.js', filepath);
-#});
-
   grunt.registerTask 'build', ['clean', 'coffee:build', 'copy:build']
+  grunt.registerTask 'server', 'Start a restify server', ->
+    grunt.log.writeln 'Started restify server on port 3000'
+    require('./server.js').listen(3000)
+  grunt.registerTask 'default', ['build', 'server', 'watch']
   
   grunt.loadNpmTasks 'grunt-contrib-coffee'
   grunt.loadNpmTasks 'grunt-contrib-requirejs'
