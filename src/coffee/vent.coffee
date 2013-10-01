@@ -1,3 +1,3 @@
-define ['wreqr'], (Wreqr) ->
-  'use strict'
+define ["wreqr"], (Wreqr) ->
+  "use strict"
   new Wreqr.EventAggregator()

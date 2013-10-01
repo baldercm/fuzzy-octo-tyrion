@@ -1,8 +1,8 @@
-define ['backbone', 'models/curso'], (Backbone, Curso) ->
+define ["backbone", "models/curso"], (Backbone, Curso) ->
   Backbone.Collection.extend
     initialize: ->
-      @on 'all', (e) -> console.log 'CursoList event: ' + e
+      @on "all", (e) -> console.log "CursoList event: " + e
     comparator: (curso) ->
-      curso.get('nombre').toLowerCase()
+      curso.get("nombre").toLowerCase()
     model: Curso
-    url: 'api/cursos'
+    url: "api/cursos"
