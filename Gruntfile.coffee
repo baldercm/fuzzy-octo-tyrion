@@ -1,6 +1,9 @@
 module.exports = (grunt) ->
   'use strict'
   grunt.initConfig
+    jshint:
+      build: ['generated/js/**/*.js']
+      test: ['test/js/**/*.js']
     coffee:
       build:
         expand: true
@@ -57,7 +60,10 @@ module.exports = (grunt) ->
         options:
           spawn: false
     clean:
-      ['generated', 'public', 'test/js']
+      build:
+        ['generated', 'public']
+      test:
+        ['test/js']
     connect:
       test:
         port: 8000
@@ -72,11 +78,14 @@ module.exports = (grunt) ->
           templateOptions:
             requireConfigFile: 'public/js/main.js'
 
-  grunt.registerTask 'build', ['clean', 'coffee:build', 'copy:build']
-  grunt.registerTask 'test', ['coffee:test', 'connect', 'jasmine']
+  grunt.registerTask 'build', ['clean:build', 'coffee:build', 'jshint:build', 'copy:build']
+  
+  grunt.registerTask 'test',  ['build', 'clean:test', 'coffee:test', 'jshint:test', 'connect', 'jasmine']
+
   grunt.registerTask 'server', 'Start a restify server', ->
     grunt.log.writeln 'Started restify server on port 3000'
     require('./server.js').listen 3000
+
   grunt.registerTask 'run', ['build', 'server', 'watch']
   
   grunt.loadNpmTasks 'grunt-contrib-coffee'
@@ -86,3 +95,4 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-contrib-clean'
   grunt.loadNpmTasks 'grunt-contrib-jasmine'
   grunt.loadNpmTasks 'grunt-contrib-connect'
+  grunt.loadNpmTasks 'grunt-contrib-jshint'
