@@ -60,12 +60,18 @@ module.exports = (grunt) ->
         ]
 
     requirejs:
-      build:
+      app:
         options:
-          mainConfigFile: "build/js/build.js"
-          baseUrl: "build/js"
+          mainConfigFile: "public/js/build.js"
+          baseUrl: "public/js"
           name: "app"
           out: "public/js/app-min.js"
+          optimize: "uglify2"
+      css:
+        options:
+          appDir: "lib/css"
+          dir: "public/css"
+          optimizeCss: "standard"
 
     watch:
       server:
@@ -98,6 +104,8 @@ module.exports = (grunt) ->
   grunt.registerTask "build", ["clean:build", "coffee:build", "jshint:build", "copy:build"]
   
   grunt.registerTask "test",  ["build", "clean:test", "coffee:test", "jshint:test", "connect", "jasmine"]
+
+  grunt.registerTask "optimize",  ["test", "requirejs"]
 
   grunt.registerTask "server", "Start a restify server", ->
     grunt.log.writeln "Started restify server on port 3000"
