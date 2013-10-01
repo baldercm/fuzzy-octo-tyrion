@@ -9,6 +9,7 @@
       wreqr: 'empty:',
       marionette: 'empty:',
       bootstrap: 'empty:',
+      tpl: 'lib/tpl',
       templatesPath: '../templates'
     },
     shim: {
@@ -31,7 +32,8 @@
         deps: ['backbone'],
         exports: 'Marionette'
       }
-    }
+    },
+    stubModules: ['tpl']
   });
 
 }).call(this);
