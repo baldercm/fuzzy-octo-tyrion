@@ -45,22 +45,17 @@ module.exports = (grunt) ->
           name: 'app'
           out: 'public/js/app-min.js'
     watch:
-      coffee:
-        files: 'src/coffee/**/*.coffee'
-        tasks: ['coffee:build', 'copy:js']
-        options:
-          spawn: false
       server:
         files:  [ '**/*.js', '**/*.coffee' ]
-        tasks:  [ 'coffee:build', 'copy:js', 'copy:jslib', 'server' ]
+        tasks:  [ 'coffee:build', 'copy:js', 'server' ]
         options:
-          nospawn: true
+          spawn: false
     clean: ['generated', 'public']
 
   grunt.registerTask 'build', ['clean', 'coffee:build', 'copy:build']
   grunt.registerTask 'server', 'Start a restify server', ->
     grunt.log.writeln 'Started restify server on port 3000'
-    require('./server.js').listen(3000)
+    require('./server.js').listen 3000
   grunt.registerTask 'default', ['build', 'server', 'watch']
   
   grunt.loadNpmTasks 'grunt-contrib-coffee'
