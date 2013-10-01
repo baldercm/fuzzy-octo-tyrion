@@ -10,5 +10,5 @@ define ['backbone'], (Backbone) ->
         required: true
         minLength: 1
         msg: 'Nombre obligatorio'
-    url: 'http://localhost:8888/api/cursos'
+    url: 'api/cursos'
     idAttribute: "_id"

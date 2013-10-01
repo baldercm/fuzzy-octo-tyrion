@@ -10,7 +10,7 @@
         return curso.get('nombre').toLowerCase();
       },
       model: Curso,
-      url: 'http://localhost:8888/api/cursos'
+      url: 'api/cursos'
     });
   });
 

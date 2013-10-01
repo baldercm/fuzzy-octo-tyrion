@@ -5,4 +5,4 @@ define ['backbone', 'models/curso'], (Backbone, Curso) ->
     comparator: (curso) ->
       curso.get('nombre').toLowerCase()
     model: Curso
-    url: 'http://localhost:8888/api/cursos'
+    url: 'api/cursos'
