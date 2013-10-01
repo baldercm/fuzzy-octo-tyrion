@@ -17,7 +17,7 @@
           msg: 'Nombre obligatorio'
         }
       },
-      url: 'api/cursos',
+      url: 'http://localhost:8888/api/cursos',
       idAttribute: "_id"
     });
   });
