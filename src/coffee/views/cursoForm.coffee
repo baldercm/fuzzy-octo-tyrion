@@ -3,7 +3,7 @@ define ["jquery", "underscore", "validation", "syphon", "marionette", "vent", "t
     template: templates.cursoForm
     initialize: ->
       vent.bind "curso:edit", @editCurso, @
-      @model = new Curso
+      @model = new Curso()
       Validation.bind @
     ui:
       form: "#cursoForm"
@@ -17,7 +17,7 @@ define ["jquery", "underscore", "validation", "syphon", "marionette", "vent", "t
       if @model.isValid()
         @collection.sort()
         @ui.form[0].reset()
-        @model = new Curso
+        @model = new Curso()
         Validation.bind @
     editCurso: (curso) ->
       @model = curso

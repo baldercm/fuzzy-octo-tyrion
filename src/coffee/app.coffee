@@ -8,9 +8,9 @@ define ["backbone", "marionette", "router", "controllers/cursos"], (Backbone, Ma
     "list": "#cursos #list"
 
   App.addInitializer ->
-    new AppRouter
+    new AppRouter()
     Backbone.history.start {root: "/cursos"}
-    controller = new CursosController
+    controller = new CursosController()
     controller.start()
 
   _.extend Backbone.Validation.callbacks,
@@ -34,9 +34,9 @@ define ["backbone", "marionette", "router", "controllers/cursos"], (Backbone, Ma
       if control.data("error-style") == "tooltip"
         position = control.data("tooltip-position") || "right"
         control.tooltip
-        placement: position
-        trigger: "manual"
-        title: error
+          placement: position
+          trigger: "manual"
+          title: error
         control.tooltip "show"
       else if control.data("error-style") == "inline"
         if group.find(".help-inline").length == 0
