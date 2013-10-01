@@ -27,9 +27,14 @@ module.exports = (grunt) ->
     copy:
       build:
         files: [
+          # JavaScript
           {expand: true, cwd: "build", src: ["**/*.js"], dest: "public"},
-          {expand: true, flatten: true, cwd: "lib", src: ["**/*.js"], dest: "public/js/lib"},
+          {expand: true, cwd: "lib/js", src: ["**/*.js"], dest: "public/js/lib"}
+          # CSS
           {expand: true, cwd: "src", src: ["**/*.css"], dest: "public"},
+          {expand: true, cwd: "lib/css", src: ["**/*.css"], dest: "public/css"}
+          {expand: true, cwd: "lib/fonts", src: ["**/*.*"], dest: "public/fonts"}
+          # HTML
           {expand: true, cwd: "src", src: ["**/*.html"], dest: "public"}
         ]
       js:
@@ -38,11 +43,16 @@ module.exports = (grunt) ->
         ]
       jslib:
         files: [
-          {expand: true, flatten: true, cwd: "lib", src: ["**/*.js"], dest: "public/js/lib"}
+          {expand: true, cwd: "lib/js", src: ["**/*.js"], dest: "public/js/lib"}
         ]
       css:
         files: [
           {expand: true, cwd: "src", src: ["**/*.css"], dest: "public"}
+        ]
+      csslib:
+        files: [
+          {expand: true, cwd: "lib/css", src: ["**/*.css"], dest: "public/css"}
+          {expand: true, cwd: "lib/fonts", src: ["**/*.*"], dest: "public/fonts"}
         ]
       html:
         files: [
