@@ -15,7 +15,7 @@ define ["backbone", "marionette", "router", "controllers/cursos"], (Backbone, Ma
 
   _.extend Backbone.Validation.callbacks,
     valid: (view, attr, selector) ->
-      control = view.$("[" + selector + "="" + attr + ""]")
+      control = view.$('[' + selector + '="' + attr + '"]')
       group = control.parents(".form-group")
       group.removeClass("has-error")
 
@@ -27,7 +27,7 @@ define ["backbone", "marionette", "router", "controllers/cursos"], (Backbone, Ma
       else
         group.find(".help-block.error-message").remove()
     invalid: (view, attr, error, selector) ->
-      control = view.$("[" + selector + "="" + attr + ""]")
+      control = view.$('[' + selector + '="' + attr + '"]')
       group = control.parents(".form-group")
       group.addClass("has-error")
 
