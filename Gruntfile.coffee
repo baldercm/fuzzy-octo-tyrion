@@ -8,6 +8,12 @@ module.exports = (grunt) ->
         src: ['**/*.coffee']
         dest: 'generated/js'
         ext: '.js'
+      test:
+        expand: true
+        cwd: 'test/coffee'
+        src: ['**/*.coffee']
+        dest: 'test/js'
+        ext: '.js'
       watch:
         expand: true
         cwd: '.'
@@ -46,20 +52,37 @@ module.exports = (grunt) ->
           out: 'public/js/app-min.js'
     watch:
       server:
-        files:  [ '**/*.js', '**/*.coffee' ]
+        files:  [ '**/*.js', '**/*.coffee', '!test/**' ]
         tasks:  [ 'coffee:build', 'copy:js', 'server' ]
         options:
           spawn: false
-    clean: ['generated', 'public']
+    clean:
+      ['generated', 'public', 'test/js']
+    connect:
+      test:
+        port: 8000
+    jasmine:
+      test:
+        src: 'src/**/*.js'
+        options:
+          specs: 'test/js/**/*Spec.js'
+          helpers: 'test/js/**/*Helper.js'
+          host: 'http://127.0.0.1:8000/'
+          template: require('grunt-template-jasmine-requirejs')
+          templateOptions:
+            requireConfigFile: 'public/js/main.js'
 
   grunt.registerTask 'build', ['clean', 'coffee:build', 'copy:build']
+  grunt.registerTask 'test', ['coffee:test', 'connect', 'jasmine']
   grunt.registerTask 'server', 'Start a restify server', ->
     grunt.log.writeln 'Started restify server on port 3000'
     require('./server.js').listen 3000
-  grunt.registerTask 'default', ['build', 'server', 'watch']
+  grunt.registerTask 'run', ['build', 'server', 'watch']
   
   grunt.loadNpmTasks 'grunt-contrib-coffee'
   grunt.loadNpmTasks 'grunt-contrib-requirejs'
   grunt.loadNpmTasks 'grunt-contrib-copy'
   grunt.loadNpmTasks 'grunt-contrib-watch'
   grunt.loadNpmTasks 'grunt-contrib-clean'
+  grunt.loadNpmTasks 'grunt-contrib-jasmine'
+  grunt.loadNpmTasks 'grunt-contrib-connect'
