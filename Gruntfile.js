@@ -43,7 +43,8 @@ module.exports = function(grunt) {
       options: {
         spawn: false,
       }
-    }
+    },
+    clean: ["generated", "public"]
   });
 
   grunt.event.on("watch", function(action, filepath) {
@@ -56,4 +57,5 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks("grunt-contrib-requirejs");
   grunt.loadNpmTasks("grunt-contrib-copy");
   grunt.loadNpmTasks("grunt-contrib-watch");
+  grunt.loadNpmTasks("grunt-contrib-clean");
 };
