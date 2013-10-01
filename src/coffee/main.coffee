@@ -1,34 +1,25 @@
 require.config
   paths:
-    jquery     : "//cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min"
-    underscore : "//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min"
-    backbone   : "//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone-min"
-    validation : "//cdnjs.cloudflare.com/ajax/libs/backbone.validation/0.7.1/backbone-validation"
-    syphon     : "//cdnjs.cloudflare.com/ajax/libs/backbone.syphon/0.4.1/backbone.syphon.min"
-    wreqr      : "//cdnjs.cloudflare.com/ajax/libs/backbone.wreqr/0.1.0/backbone.wreqr.min"
-    marionette : "//cdnjs.cloudflare.com/ajax/libs/backbone.marionette/1.1.0-bundled/backbone.marionette.min"
-    bootstrap  : "//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min"
-    tpl        : "lib/tpl",
-    templatesPath : "../templates"
+    "backbone"           : "lib/backbone"
+    "backbone.babysitter": "lib/backbone.babysitter.amd"
+    "backbone.syphon"    : "lib/backbone.syphon.amd"
+    "backbone.validation": "lib/backbone.validation.amd"
+    "backbone.wreqr"     : "lib/backbone.wreqr.amd"
+    "bootstrap"          : "lib/bootstrap"
+    "json2"              : "lib/json2"
+    "jquery"             : "lib/jquery"
+    "marionette"         : "lib/backbone.marionette.amd"
+    "tpl"                : "lib/tpl"
+    "underscore"         : "lib/underscore"
+    "templatesPath"      : "../templates"
   
   shim:
     "underscore":
       exports: "_"
     "backbone":
-      deps: ["jquery", "underscore"]
+      deps: ["jquery", "underscore", "json2"]
       exports: "Backbone"
-    "validation":
-      deps : ["backbone"]
-      exports : "Backbone.Validation"
-    "syphon":
-      deps : ["backbone"]
-      exports : "Backbone.Syphon"
-    "wreqr":
-      deps : ["backbone"]
-      exports : "Backbone.Wreqr"
-    "marionette":
-      deps : ["backbone"]
-      exports : "Marionette"
+    "bootstrap": ["jquery"]
 
 require ["app"], (App) ->
   "use strict"

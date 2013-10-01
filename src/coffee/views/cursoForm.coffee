@@ -1,4 +1,4 @@
-define ["jquery", "underscore", "validation", "syphon", "marionette", "vent", "templates", "models/curso"], ($, _, Validation, Syphon, Marionette, vent, templates, Curso) ->
+define ["jquery", "underscore", "backbone.syphon", "backbone.validation", "marionette", "vent", "templates", "models/curso"], ($, _, Syphon, Validation, Marionette, vent, templates, Curso) ->
   Marionette.ItemView.extend
     template: templates.cursoForm
     initialize: ->
