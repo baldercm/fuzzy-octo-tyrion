@@ -20,7 +20,7 @@ var cursoSchema = mongoose.Schema({
 
 var Curso = mongoose.model("Curso", cursoSchema);
 
-var server = restify.createServer();
+var server = module.exports = restify.createServer();
 
 var getCursos = function(req, res, next) {
 //   res.header( 'Access-Control-Allow-Origin', '*' );
@@ -63,11 +63,12 @@ server.put("/api/cursos", putCurso);
 server.post("/api/cursos", postCurso);
 server.get(/\/?.*/, restify.serveStatic({
   directory: "./public",
-  default: "index.html"
+  default: "index.html",
+  maxAge: 0
 }));
 
 // SERVER
 // ======
-server.listen(port, function() {
-  console.log("%s listening at %s", server.name, server.url);
-});
+// server.listen(port, function() {
+//   console.log("%s listening at %s", server.name, server.url);
+// });
