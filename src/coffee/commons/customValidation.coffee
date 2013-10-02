@@ -1,7 +1,7 @@
-define ["backbone", "marionette"], (Backbone, Marionette) ->
+define ["backbone.validation", "marionette"], (Validation, Marionette) ->
   "use strict"
   Marionette.Controller.extend
-    applyCallbacks: -> _.extend Backbone.Validation.callbacks,
+    applyCallbacks: -> _.extend Validation.callbacks,
       valid: (view, attr, selector) ->
         control = view.$('[' + selector + '="' + attr + '"]')
         group = control.parents(".form-group")
