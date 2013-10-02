@@ -13,8 +13,8 @@ define [
     class View.Layout extends Marionette.Layout
       template: layoutTpl
       regions:
-        form: '#form'
-        list: '#list'
+        formRegion: '#form'
+        listRegion: '#list'
 
     class View.Item extends Marionette.ItemView
       template: itemTpl
@@ -25,7 +25,8 @@ define [
       tagName:   'tr'
       className: 'curso-view'
       editClicked: (e) ->
-        MainApp.trigger 'curso:edit', @model
+        e.preventDefault()
+        @trigger 'curso:edit', @model
 
     class View.List extends Marionette.CompositeView
       template: listTpl
@@ -38,28 +39,26 @@ define [
 
     class View.Form extends Marionette.ItemView
       template: formTpl
-      initialize: ->
-        MainApp.bind 'curso:edit', @editCurso, @
-        @model = new MainApp.CursoApp.Model.Curso()
-        Backbone.Validation.bind @
-      ui:
-        form: '#cursoForm'
-      events:
-        'click #save': 'saveCurso'
-      saveCurso: (e) ->
-        e.preventDefault()
-        data = Backbone.Syphon.serialize @ui.form[0]
-        @model.set data
-        @collection.create @model, {wait: true}
-        if @model.isValid()
-          @collection.sort()
-          @ui.form[0].reset()
-          @model = new MainApp.CursoApp.Model.Curso()
-          Backbone.Validation.bind @
-      editCurso: (curso) ->
-        @model = curso
-        Backbone.Validation.bind @
-        Backbone.Syphon.deserialize @, curso.attributes
+#       initialize: ->
+#         Backbone.Validation.bind @
+#       ui:
+#         form: '#cursoForm'
+#       events:
+#         'click #save': 'saveCurso'
+#       saveCurso: (e) ->
+#         e.preventDefault()
+#         data = Backbone.Syphon.serialize @ui.form[0]
+#         @model.set data
+#         @collection.create @model, {wait: true}
+#         if @model.isValid()
+#           @collection.sort()
+#           @ui.form[0].reset()
+#           @model = new MainApp.CursoApp.Model.Curso()
+#           Backbone.Validation.bind @
+#       editCurso: (curso) ->
+#         @model = curso
+#         Backbone.Validation.bind @
+#         Backbone.Syphon.deserialize @, curso.attributes
 
     return # end of module
 

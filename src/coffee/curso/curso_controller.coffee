@@ -12,15 +12,23 @@ define [
         cursos.fetch {reset: true}
 
         layout = new CursoApp.View.Layout()
-        form = new CursoApp.View.Form {collection: cursos}
-        list = new CursoApp.View.List {collection: cursos}
+        listView = new CursoApp.View.List(collection: cursos)
 
         layout.on 'show', ->
-          layout.form.show form
-          layout.list.show list
+          layout.listRegion.show listView
+
+        listView.on "itemview:curso:edit", (childView, curso) ->
+          require ["curso/curso_view"], ->
+            formView = new CursoApp.View.Form(model: curso)
+#             formView.on "form:submit", (data) ->
+#               if curso.save(data)
+#                 childView.render()
+#               else
+#                 formView.triggerMethod "form:data:invalid", curso.validationError
+
+            layout.formRegion.show formView
 
         MainApp.mainRegion.show layout
-
     return # end of module
 
   return MainApp.CursoApp.Controller # end of define
