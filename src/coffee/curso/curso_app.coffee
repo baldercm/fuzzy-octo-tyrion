@@ -3,11 +3,16 @@ define [
 ], (MainApp) ->
   'use strict'
 
-#   MainApp.module 'CursoApp', (CursoApp, MainApp, Backbone, Marionette, $, _) ->
-#     CursoApp.start = ->
-#         require ['curso/curso_controller'], -> new CursoApp.Controller().start()
-#
-#     return # end of module
+  MainApp.module 'CursoApp', (CursoApp, MainApp, Backbone, Marionette, $, _) ->
+    CursoApp.startWithParent = false
+
+    CursoApp.onStart = ->
+      console.log "starting CursoApp"
+
+    CursoApp.onStop = ->
+      console.log "stopping CursoApp"
+
+    return # end of module
 
   MainApp.module 'Routers.CursoApp', (CursoApp, MainApp, Backbone, Marionette, $, _) ->
     class CursoApp.Router extends Marionette.AppRouter
@@ -18,7 +23,9 @@ define [
 
     API =
       listCursos: ->
-        require ['curso/curso_controller'], -> new MainApp.CursoApp.Controller().list()
+        require ['curso/curso_controller'], ->
+          MainApp.startSubApp("CursoApp")
+          new MainApp.CursoApp.Controller().list()
       showCurso: ->
         console.log 'TODO Routers.CursoApp.showCurso'
       editCurso: ->

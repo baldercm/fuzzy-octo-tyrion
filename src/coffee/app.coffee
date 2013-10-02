@@ -7,6 +7,18 @@ define ['marionette'], (Marionette) ->
     'form': '#cursos #form'
     'list': '#cursos #list'
 
+  MainApp.startSubApp = (appName, args) ->
+    currentApp = if appName then MainApp.module(appName) else null
+    if (MainApp.currentApp == currentApp)
+      return
+
+    if (MainApp.currentApp)
+      MainApp.currentApp.stop()
+
+    MainApp.currentApp = currentApp
+    if (currentApp)
+      currentApp.start(args)
+
   MainApp.on 'initialize:after', ->
     require ['commons/customValidation'], ->
       MainApp.trigger 'backbone:validation:custom:applyCallbacks'
