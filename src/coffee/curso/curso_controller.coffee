@@ -22,10 +22,8 @@ define [
             formView = new CursoApp.View.Form(model: curso)
 
             formView.on "curso:save", (data) ->
-              curso.set data
-              curso.validate()
+              curso.save data, wait: true
               if curso.isValid()
-                curso.save()
                 itemView.render()
                 layout.formRegion.close()
 
