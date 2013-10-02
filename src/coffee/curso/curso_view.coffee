@@ -25,7 +25,7 @@ define [
       tagName:   'tr'
       className: 'curso-view'
       editClicked: (e) ->
-        MainApp.vent.trigger 'curso:edit', @model
+        MainApp.trigger 'curso:edit', @model
 
     class View.List extends Marionette.CompositeView
       template: listTpl
@@ -39,7 +39,7 @@ define [
     class View.Form extends Marionette.ItemView
       template: formTpl
       initialize: ->
-        MainApp.vent.bind 'curso:edit', @editCurso, @
+        MainApp.bind 'curso:edit', @editCurso, @
         @model = new MainApp.CursoApp.Model.Curso()
         Backbone.Validation.bind @
       ui:
