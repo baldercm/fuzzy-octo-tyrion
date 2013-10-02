@@ -5,9 +5,8 @@ define [
 
   MainApp.module 'CursoApp.Model', (Model, MainApp, Backbone, Marionette, $, _) ->
     class Model.Curso extends Backbone.Model
-      initialize: ->
-        console.log 'Curso Initialized...'
-        @on 'all', (e) -> console.log @get('id') + ':' + @get('nombre') + ' - event: ' + e
+#       initialize: ->
+#         @on 'all', (e) -> console.log @get('id') + ':' + @get('nombre') + ' - event: ' + e
       defaults:
         nombre: '----'
       validation:
@@ -19,13 +18,13 @@ define [
       idAttribute: '_id'
 
     class Model.CursoCollection extends Backbone.Collection
-      initialize: ->
-        @on 'all', (e) -> console.log 'CursoList event: ' + e
+#       initialize: ->
+#         @on 'all', (e) -> console.log 'CursoList event: ' + e
       comparator: (curso) ->
         curso.get('nombre').toLowerCase()
       model: Model.Curso
       url: 'api/cursos'
-    
+
     return # end of module
 
   return MainApp.CursoApp.Model # end of define
