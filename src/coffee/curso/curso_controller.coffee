@@ -17,14 +17,17 @@ define [
         layout.on 'show', ->
           layout.listRegion.show listView
 
-        listView.on "itemview:curso:edit", (childView, curso) ->
+        listView.on "itemview:curso:edit", (itemView, curso) ->
           require ["curso/curso_view"], ->
             formView = new CursoApp.View.Form(model: curso)
-#             formView.on "form:submit", (data) ->
-#               if curso.save(data)
-#                 childView.render()
-#               else
-#                 formView.triggerMethod "form:data:invalid", curso.validationError
+
+            formView.on "curso:save", (data) ->
+              curso.set data
+              curso.validate()
+              if curso.isValid()
+                curso.save()
+                itemView.render()
+                layout.formRegion.close()
 
             layout.formRegion.show formView
 

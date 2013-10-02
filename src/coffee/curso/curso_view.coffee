@@ -5,7 +5,6 @@ define [
   'tpl!templates/cursos.tpl'
   'tpl!templates/cursoForm.tpl'
   'backbone.syphon'
-  'backbone.validation'
 ], (MainApp, layoutTpl, itemTpl, listTpl, formTpl) ->
   'use strict'
 
@@ -19,7 +18,7 @@ define [
     class View.Item extends Marionette.ItemView
       template: itemTpl
       initialize: ->
-        @model.bind 'change', @render, @
+        @model.bind 'sync', @render, @
       events:
         'click a.edit' : 'editClicked'
       tagName:   'tr'
@@ -32,33 +31,19 @@ define [
       template: listTpl
       itemView: View.Item
       itemViewContainer: 'tbody'
-      _initialEvents: ->
-        @listenTo @collection, 'add', @render, @
-        @listenTo @collection, 'remove', @removeItemView, @
-        @listenTo @collection, 'reset', @render, @
 
     class View.Form extends Marionette.ItemView
       template: formTpl
-#       initialize: ->
-#         Backbone.Validation.bind @
-#       ui:
-#         form: '#cursoForm'
-#       events:
-#         'click #save': 'saveCurso'
-#       saveCurso: (e) ->
-#         e.preventDefault()
-#         data = Backbone.Syphon.serialize @ui.form[0]
-#         @model.set data
-#         @collection.create @model, {wait: true}
-#         if @model.isValid()
-#           @collection.sort()
-#           @ui.form[0].reset()
-#           @model = new MainApp.CursoApp.Model.Curso()
-#           Backbone.Validation.bind @
-#       editCurso: (curso) ->
-#         @model = curso
-#         Backbone.Validation.bind @
-#         Backbone.Syphon.deserialize @, curso.attributes
+      initialize: ->
+        Backbone.Validation.bind this
+      onClose: ->
+        Backbone.Validation.unbind this
+      events:
+        'click #save': 'saveClicked'
+      saveClicked: (e) ->
+        e.preventDefault()
+        data = Backbone.Syphon.serialize this
+        @trigger "curso:save", data
 
     return # end of module
 
