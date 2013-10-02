@@ -1,14 +1,13 @@
 define [
   'app'
   'vent'
-  'models/curso'
   'tpl!templates/cursoLayout.tpl'
   'tpl!templates/curso.tpl'
   'tpl!templates/cursos.tpl'
   'tpl!templates/cursoForm.tpl'
   'backbone.syphon'
   'backbone.validation'
-], (MainApp, vent, Curso, layoutTpl, itemTpl, listTpl, formTpl) ->
+], (MainApp, vent, layoutTpl, itemTpl, listTpl, formTpl) ->
   'use strict'
   
   MainApp.module 'CursoApp.View', (View, MainApp, Backbone, Marionette, $, _) ->
@@ -35,22 +34,22 @@ define [
     class View.List extends Marionette.CompositeView
       template: listTpl
       itemView: View.Item
-      itemViewContainer: "tbody"
+      itemViewContainer: 'tbody'
       _initialEvents: ->
-        @listenTo @collection, "add", @render, @
-        @listenTo @collection, "remove", @removeItemView, @
-        @listenTo @collection, "reset", @render, @
+        @listenTo @collection, 'add', @render, @
+        @listenTo @collection, 'remove', @removeItemView, @
+        @listenTo @collection, 'reset', @render, @
 
     class View.Form extends Marionette.ItemView
       template: formTpl
       initialize: ->
-        vent.bind "curso:edit", @editCurso, @
-        @model = new Curso()
+        vent.bind 'curso:edit', @editCurso, @
+        @model = new MainApp.CursoApp.Model.Curso()
         Backbone.Validation.bind @
       ui:
-        form: "#cursoForm"
+        form: '#cursoForm'
       events:
-        "click #save": "saveCurso"
+        'click #save': 'saveCurso'
       saveCurso: (e) ->
         e.preventDefault()
         data = Backbone.Syphon.serialize @ui.form[0]
@@ -59,7 +58,7 @@ define [
         if @model.isValid()
           @collection.sort()
           @ui.form[0].reset()
-          @model = new Curso()
+          @model = new MainApp.CursoApp.Model.Curso()
           Backbone.Validation.bind @
       editCurso: (curso) ->
         @model = curso
@@ -68,4 +67,4 @@ define [
     
     return # end of module
 
-  return MainApp.CursoApp.View
+  return MainApp.CursoApp.View # end of define

@@ -1,25 +1,25 @@
 define [
   'app'
   'curso/curso_view'
-  'collections/cursos'
-], (MainApp, View, Cursos) ->
+  'curso/curso_model'
+], (MainApp) ->
   'use strict'
   
   MainApp.module 'CursoApp', (CursoApp, MainApp, Backbone, Marionette, $, _) ->
     class CursoApp.Controller extends Marionette.Controller
       start: ->
-        cursos = new Cursos()
+        cursos = new CursoApp.Model.CursoCollection()
 
         container = new Marionette.Region
           el: '#curso-container'
 
-        layout = new View.Layout()
+        layout = new CursoApp.View.Layout()
         container.show layout
 
         options = {collection: cursos}
 
-        layout.form.show new View.Form options
-        layout.list.show new View.List options
+        layout.form.show new CursoApp.View.Form options
+        layout.list.show new CursoApp.View.List options
 
         cursos.fetch {reset: true}
         
