@@ -1,6 +1,6 @@
-define ["underscore", "marionette", "templates"], (_, Marionette, templates) ->
+define ["underscore", "marionette", "tpl!templates/cursoLayout.tpl"], (_, Marionette, layoutTemplate) ->
   Marionette.Layout.extend
-    template: templates.cursoLayout
+    template: layoutTemplate
     regions:
       form: "#form"
       list: "#list"

@@ -1,6 +1,6 @@
-define ["jquery", "underscore", "backbone", "marionette", "vent", "templates", "views/cursoForm"], ($, _, Backbone, Marionette, vent, templates, CursoFormView) ->
+define ["jquery", "underscore", "backbone", "marionette", "vent", "tpl!templates/curso.tpl", "views/cursoForm"], ($, _, Backbone, Marionette, vent, itemTemplate, CursoFormView) ->
   Marionette.ItemView.extend
-    template: templates.curso
+    template: itemTemplate
     initialize: ->
       @model.bind "change", @render, @
     events:

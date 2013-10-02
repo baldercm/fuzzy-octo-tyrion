@@ -13,7 +13,7 @@ require.config
     "spin"               : "empty:"
     "tpl"                : "lib/tpl"
     "underscore"         : "empty:"
-    "templatesPath"      : "../templates"
+    "templates"          : "../templates"
 
   shim:
     "underscore":

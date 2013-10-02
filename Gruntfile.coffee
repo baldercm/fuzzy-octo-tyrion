@@ -30,6 +30,7 @@ module.exports = (grunt) ->
           # JavaScript
           {expand: true, cwd: "build", src: ["**/*.js"], dest: "public"},
           {expand: true, cwd: "lib/js", src: ["**/*.js"], dest: "public/js/lib"}
+          {expand: true, cwd: "src/templates", src: ["**/*.tpl"], dest: "public/templates"}
           # CSS
           {expand: true, cwd: "src", src: ["**/*.css"], dest: "public"},
           {expand: true, cwd: "lib/css", src: ["**/*.css"], dest: "public/css"}
@@ -40,6 +41,7 @@ module.exports = (grunt) ->
       js:
         files: [
           {expand: true, cwd: "build", src: ["**/*.js"], dest: "public"}
+          {expand: true, cwd: "src/templates", src: ["**/*.tpl"], dest: "public/templates"}
         ]
       jslib:
         files: [

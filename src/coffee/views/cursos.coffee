@@ -1,6 +1,6 @@
-define ["jquery", "underscore", "marionette", "views/curso", "templates"], ($, _, Marionette, CursoView, templates) ->
+define ["jquery", "underscore", "marionette", "views/curso", "tpl!templates/cursos.tpl"], ($, _, Marionette, CursoView, listTemplate) ->
   Marionette.CompositeView.extend
-    template: templates.cursos
+    template: listTemplate
     itemView: CursoView
     itemViewContainer: "tbody"
     _initialEvents: ->
