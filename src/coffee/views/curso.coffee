@@ -1,4 +1,4 @@
-define ["jquery", "underscore", "backbone", "marionette", "vent", "tpl!templates/curso.tpl", "views/cursoForm"], ($, _, Backbone, Marionette, vent, itemTemplate, CursoFormView) ->
+define ["backbone", "marionette", "vent", "tpl!templates/curso.tpl"], (Backbone, Marionette, vent, itemTemplate) ->
   Marionette.ItemView.extend
     template: itemTemplate
     initialize: ->

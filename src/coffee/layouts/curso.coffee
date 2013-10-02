@@ -1,4 +1,4 @@
-define ["underscore", "marionette", "tpl!templates/cursoLayout.tpl"], (_, Marionette, layoutTemplate) ->
+define ["marionette", "tpl!templates/cursoLayout.tpl"], (Marionette, layoutTemplate) ->
   Marionette.Layout.extend
     template: layoutTemplate
     regions:
