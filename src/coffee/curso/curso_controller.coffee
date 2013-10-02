@@ -9,19 +9,17 @@ define [
     class CursoApp.Controller extends Marionette.Controller
       list: ->
         cursos = new CursoApp.Model.CursoCollection()
-
-        container = new Marionette.Region
-          el: '#curso-container'
+        cursos.fetch {reset: true}
 
         layout = new CursoApp.View.Layout()
-        container.show layout
+        form = new CursoApp.View.Form {collection: cursos}
+        list = new CursoApp.View.List {collection: cursos}
 
-        options = {collection: cursos}
+        layout.on 'show', ->
+          layout.form.show form
+          layout.list.show list
 
-        layout.form.show new CursoApp.View.Form options
-        layout.list.show new CursoApp.View.List options
-
-        cursos.fetch {reset: true}
+        MainApp.mainRegion.show layout
 
     return # end of module
 

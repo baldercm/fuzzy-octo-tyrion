@@ -4,8 +4,7 @@ define ['marionette'], (Marionette) ->
   MainApp = new Marionette.Application()
 
   MainApp.addRegions
-    'form': '#cursos #form'
-    'list': '#cursos #list'
+    mainRegion: '#main-region'
 
   MainApp.startSubApp = (appName, args) ->
     currentApp = if appName then MainApp.module(appName) else null
