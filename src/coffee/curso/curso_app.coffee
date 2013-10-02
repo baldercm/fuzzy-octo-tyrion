@@ -3,6 +3,6 @@ define ["app"], (MainApp) ->
     CursoApp.start = ->
         require ["curso/curso_controller"], (Controller) ->
           CursoApp.Controller.start()
-    CursoApp
+    return
   
   MainApp.CursoApp
