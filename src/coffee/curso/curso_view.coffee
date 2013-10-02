@@ -40,10 +40,14 @@ define [
         Backbone.Validation.unbind this
       events:
         'click #save': 'saveClicked'
+        'click #back': 'backClicked'
       saveClicked: (e) ->
         e.preventDefault()
         data = Backbone.Syphon.serialize this
         @trigger "curso:save", data
+      backClicked: (e) ->
+        e.preventDefault()
+        @trigger "curso:back"
 
     return # end of module
 

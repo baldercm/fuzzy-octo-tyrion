@@ -27,6 +27,9 @@ define [
                 itemView.render()
                 layout.formRegion.close()
 
+            formView.on "curso:back", ->
+              layout.formRegion.close()
+
             layout.formRegion.show formView
 
         MainApp.mainRegion.show layout

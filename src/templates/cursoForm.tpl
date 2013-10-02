@@ -7,6 +7,7 @@
     </div>
   </div>
   <div class="form-group">
-    <button id="save" type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> Guardar</button>
+    <button id="save" type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-floppy-disk"></span> Guardar</button>
+    <button id="back" type="button" class="btn btn-default"><span class="glyphicon glyphicon-chevron-left"></span> Volver</button>
   </div>
 </form>
