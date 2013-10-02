@@ -2,6 +2,7 @@ require.config
   paths:
     "backbone"           : "lib/backbone"
     "backbone.babysitter": "lib/backbone.babysitter.amd"
+    "backbone.picky"     : "lib/backbone.picky.amd"
     "backbone.syphon"    : "lib/backbone.syphon.amd"
     "backbone.validation": "lib/backbone.validation.amd"
     "backbone.wreqr"     : "lib/backbone.wreqr.amd"

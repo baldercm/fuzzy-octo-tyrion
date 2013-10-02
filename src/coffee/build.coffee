@@ -2,6 +2,7 @@ require.config
   paths:
     "backbone"           : "empty:"
     "backbone.babysitter": "empty:"
+    "backbone.picky"     : "empty:"
     "backbone.syphon"    : "empty:"
     "backbone.validation": "empty:"
     "backbone.wreqr"     : "empty:"
