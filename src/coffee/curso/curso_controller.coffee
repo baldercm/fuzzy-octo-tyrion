@@ -25,4 +25,4 @@ define [
         
     return # end of module
     
-  return MainApp.CursoApp.Controller
+  return MainApp.CursoApp.Controller # end of define

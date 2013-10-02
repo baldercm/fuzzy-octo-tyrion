@@ -9,4 +9,4 @@ define [
 
     return # end of module
   
-  return MainApp.CursoApp
+  return MainApp.CursoApp # end of define
