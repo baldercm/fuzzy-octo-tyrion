@@ -1,13 +1,12 @@
 define [
   'app'
-  'vent'
   'tpl!templates/cursoLayout.tpl'
   'tpl!templates/curso.tpl'
   'tpl!templates/cursos.tpl'
   'tpl!templates/cursoForm.tpl'
   'backbone.syphon'
   'backbone.validation'
-], (MainApp, vent, layoutTpl, itemTpl, listTpl, formTpl) ->
+], (MainApp, layoutTpl, itemTpl, listTpl, formTpl) ->
   'use strict'
   
   MainApp.module 'CursoApp.View', (View, MainApp, Backbone, Marionette, $, _) ->
@@ -29,7 +28,7 @@ define [
         e.preventDefault()
         e.stopPropagation()
         Backbone.history.navigate(@model.id + '/edit');
-        vent.trigger 'curso:edit', @model
+        MainApp.vent.trigger 'curso:edit', @model
     
     class View.List extends Marionette.CompositeView
       template: listTpl
@@ -43,7 +42,7 @@ define [
     class View.Form extends Marionette.ItemView
       template: formTpl
       initialize: ->
-        vent.bind 'curso:edit', @editCurso, @
+        MainApp.vent.bind 'curso:edit', @editCurso, @
         @model = new MainApp.CursoApp.Model.Curso()
         Backbone.Validation.bind @
       ui:
