@@ -8,13 +8,13 @@ define [
 #       initialize: ->
 #         @on 'all', (e) -> console.log @get('id') + ':' + @get('nombre') + ' - event: ' + e
       defaults:
-        nombre: '----'
+        nombre: ''
       validation:
         nombre:
           required: true
           minLength: 1
           msg: 'Nombre obligatorio'
-      url: 'api/cursos'
+      urlRoot: 'api/cursos'
       idAttribute: '_id'
 
     class Model.CursoCollection extends Backbone.Collection
