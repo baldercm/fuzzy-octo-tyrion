@@ -3,22 +3,30 @@ define [
   'tpl!templates/cursoLayout.tpl'
   'tpl!templates/curso.tpl'
   'tpl!templates/cursos.tpl'
+  'tpl!templates/cursoToolbar.tpl'
   'tpl!templates/cursoForm.tpl'
   'backbone.syphon'
-], (MainApp, layoutTpl, itemTpl, listTpl, formTpl) ->
+], (MainApp, layoutTpl, itemTpl, listTpl, toolbarTpl, formTpl) ->
   'use strict'
 
   MainApp.module 'CursoApp.View', (View, MainApp, Backbone, Marionette, $, _) ->
     class View.Layout extends Marionette.Layout
       template: layoutTpl
       regions:
-        formRegion: '#form'
-        listRegion: '#list'
+        toolbarRegion: '#toolbar-region'
+        formRegion: '#form-region'
+        listRegion: '#list-region'
+
+    class View.Toolbar extends Marionette.ItemView
+      template: toolbarTpl
+      events:
+        'click #new' : 'newClicked'
+      newClicked: (e) ->
+        e.preventDefault()
+        @trigger 'curso:new'
 
     class View.Item extends Marionette.ItemView
       template: itemTpl
-      initialize: ->
-        @model.bind 'sync', @render, @
       events:
         'click a.edit' : 'editClicked'
       tagName:   'tr'
@@ -31,6 +39,13 @@ define [
       template: listTpl
       itemView: View.Item
       itemViewContainer: 'tbody'
+      appendHtml: (collectionView, itemView, index) ->
+        childrenContainer = (if collectionView.itemViewContainer then collectionView.$(collectionView.itemViewContainer) else collectionView.$el)
+        children = childrenContainer.children()
+        if children.size() <= index
+          childrenContainer.append itemView.el
+        else
+          childrenContainer.children().eq(index).before itemView.el
 
     class View.Form extends Marionette.ItemView
       template: formTpl
