@@ -8,14 +8,14 @@ define [
   'backbone.validation'
 ], (MainApp, layoutTpl, itemTpl, listTpl, formTpl) ->
   'use strict'
-  
+
   MainApp.module 'CursoApp.View', (View, MainApp, Backbone, Marionette, $, _) ->
     class View.Layout extends Marionette.Layout
       template: layoutTpl
       regions:
         form: '#form'
         list: '#list'
-    
+
     class View.Item extends Marionette.ItemView
       template: itemTpl
       initialize: ->
@@ -25,11 +25,8 @@ define [
       tagName:   'tr'
       className: 'curso-view'
       editClicked: (e) ->
-        e.preventDefault()
-        e.stopPropagation()
-        Backbone.history.navigate(@model.id + '/edit');
         MainApp.vent.trigger 'curso:edit', @model
-    
+
     class View.List extends Marionette.CompositeView
       template: listTpl
       itemView: View.Item
@@ -63,7 +60,7 @@ define [
         @model = curso
         Backbone.Validation.bind @
         Backbone.Syphon.deserialize @, curso.attributes
-    
+
     return # end of module
 
   return MainApp.CursoApp.View # end of define

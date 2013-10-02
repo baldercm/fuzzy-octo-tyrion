@@ -1,6 +1,6 @@
-define ['marionette', 'router', 'commons/customValidation'], (Marionette, AppRouter, CustomValidation) ->
+define ['marionette', 'commons/customValidation'], (Marionette, CustomValidation) ->
   'use strict'
-  
+
   MainApp = new Marionette.Application()
 
   MainApp.addRegions
@@ -9,9 +9,9 @@ define ['marionette', 'router', 'commons/customValidation'], (Marionette, AppRou
 
   MainApp.on 'initialize:after', ->
     new CustomValidation().applyCallbacks()
-    new AppRouter()
-    Backbone.history.start {root: '/cursos'}
-    require ['curso/curso_app'], (CursoApp) ->
-      CursoApp.start()
+    require ['curso/curso_app'], ->
+      Backbone.history.start()
+      if Backbone.history.fragment == ''
+        MainApp.trigger('cursos:list')
 
   return MainApp  # end of define
