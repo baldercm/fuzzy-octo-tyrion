@@ -1,6 +1,6 @@
 define ["app", "curso/curso_view", "collections/cursos", "views/cursos", "views/cursoForm"], (MainApp, View, Cursos, CursosView, CursoFormView) ->
   MainApp.module "CursoApp", (CursoApp, MainApp, Backbone, Marionette, $, _) ->
-    CursoApp.Controller =
+    class CursoApp.Controller extends Marionette.Controller
       start: ->
         cursos = new Cursos()
 
@@ -18,4 +18,4 @@ define ["app", "curso/curso_view", "collections/cursos", "views/cursos", "views/
         cursos.fetch {reset: true}
     return
     
-  MainApp.CursoApp.Controller
+  return MainApp.CursoApp.Controller
