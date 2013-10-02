@@ -1,17 +1,17 @@
-define ["backbone", "marionette", "router", "controllers/cursos", "commons/customValidation"], (Backbone, Marionette, AppRouter, CursosController, CustomValidation) ->
-  "use strict"
+define ['marionette', 'router', 'commons/customValidation'], (Marionette, AppRouter, CustomValidation) ->
+  'use strict'
   
-  App = new Marionette.Application()
+  MainApp = new Marionette.Application()
 
-  App.addRegions
-    "form": "#cursos #form"
-    "list": "#cursos #list"
+  MainApp.addRegions
+    'form': '#cursos #form'
+    'list': '#cursos #list'
 
-  App.addInitializer ->
+  MainApp.on 'initialize:after', ->
     new CustomValidation().applyCallbacks()
     new AppRouter()
-    Backbone.history.start {root: "/cursos"}
-    controller = new CursosController()
-    controller.start()
+    Backbone.history.start {root: '/cursos'}
+    require ['curso/curso_app'], (CursoApp) ->
+      CursoApp.start()
 
-  App
+  return MainApp  # end of define
