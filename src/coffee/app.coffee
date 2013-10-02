@@ -1,4 +1,4 @@
-define ['marionette', 'commons/customValidation'], (Marionette, CustomValidation) ->
+define ['marionette'], (Marionette) ->
   'use strict'
 
   MainApp = new Marionette.Application()
@@ -8,10 +8,12 @@ define ['marionette', 'commons/customValidation'], (Marionette, CustomValidation
     'list': '#cursos #list'
 
   MainApp.on 'initialize:after', ->
-    new CustomValidation().applyCallbacks()
+    require ['commons/customValidation'], ->
+      MainApp.trigger 'backbone:validation:custom:applyCallbacks'
+
     require ['curso/curso_app'], ->
       Backbone.history.start()
       if Backbone.history.fragment == ''
-        MainApp.trigger('cursos:list')
+        MainApp.trigger 'cursos:list'
 
   return MainApp  # end of define

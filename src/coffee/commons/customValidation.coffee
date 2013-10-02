@@ -1,7 +1,10 @@
-define ["backbone.validation", "marionette"], (Validation, Marionette) ->
-  "use strict"
-  Marionette.Controller.extend
-    applyCallbacks: -> _.extend Validation.callbacks,
+define [
+  'app'
+  'backbone.validation'
+], (MainApp, Validation) ->
+  'use strict'
+  MainApp.on 'backbone:validation:custom:applyCallbacks', ->
+    _.extend Validation.callbacks,
       valid: (view, attr, selector) ->
         control = view.$('[' + selector + '="' + attr + '"]')
         group = control.parents(".form-group")
@@ -36,4 +39,6 @@ define ["backbone.validation", "marionette"], (Validation, Marionette) ->
             group.find(".form-control").after("<p class=\"help-block error-message\"></p>")
           target = group.find(".help-block")
           target.text(error)
-      false
+    return
+
+  return # end of define
