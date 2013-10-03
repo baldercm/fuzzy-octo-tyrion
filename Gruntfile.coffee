@@ -18,11 +18,6 @@ module.exports = (grunt) ->
         src: ["**/*.coffee"]
         dest: "build-test/js"
         ext: ".js"
-      watch:
-        expand: true
-        cwd: "."
-        dest: "build/js"
-        ext: ".js"
 
     copy:
       build:
@@ -30,6 +25,7 @@ module.exports = (grunt) ->
           # JavaScript
           {expand: true, cwd: "build", src: ["**/*.js"], dest: "public"},
           {expand: true, cwd: "lib/js", src: ["**/*.js"], dest: "public/js/lib"}
+          # Templates
           {expand: true, cwd: "src/templates", src: ["**/*.tpl"], dest: "public/templates"}
           # CSS
           {expand: true, cwd: "src", src: ["**/*.css"], dest: "public"},
@@ -41,6 +37,9 @@ module.exports = (grunt) ->
       js:
         files: [
           {expand: true, cwd: "build", src: ["**/*.js"], dest: "public"}
+        ]
+      tpl:
+        files: [
           {expand: true, cwd: "src/templates", src: ["**/*.tpl"], dest: "public/templates"}
         ]
       jslib:
@@ -76,11 +75,29 @@ module.exports = (grunt) ->
           optimizeCss: "standard"
 
     watch:
-      server:
-        files: ["**/*.js", "**/*.coffee", "!test/**"]
-        tasks: ["coffee:build", "copy:js", "server"]
+      coffee:
+        files: ["src/coffee/**/*.coffee"]
+        tasks: ["coffee:build", "jshint:build", "copy:js"]
         options:
           spawn: false
+      html:
+        files: ["src/**/*.html"]
+        tasks: ["copy:html"]
+        options:
+          spawn: false
+      tpl:
+        files: ["src/templates/**/*.tpl"]
+        tasks: ["copy:tpl"]
+        options:
+          spawn: false
+      css:
+        files: ["src/css/**/*.css", "lib/css/**/*.css"]
+        tasks: ["copy:css"]
+        options:
+          spawn: false
+      gruntfile:
+        files: 'Gruntfile.coffee'
+        tasks: ['build']
 
     clean:
       build:
