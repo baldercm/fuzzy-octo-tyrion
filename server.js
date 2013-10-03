@@ -22,11 +22,16 @@ var Curso = mongoose.model("Curso", cursoSchema);
 
 var server = module.exports = restify.createServer();
 
-var getCursos = function(req, res, next) {
-//   res.header( 'Access-Control-Allow-Origin', '*' );
-//   res.header( 'Access-Control-Allow-Method', 'GET' );
-//   res.header( 'Access-Control-Allow-Headers', 'Origin, X-Requested-With, X-File-Name, Content-Type, Cache-Control' );
+var getCurso = function(req, res, next) {
+  var query = Curso.findById(req.params._id, function (err, curso) {
+    console.log("Get " + JSON.stringify(curso));
+    res.send(curso);
+  });
 
+  return next();
+};
+
+var getCursos = function(req, res, next) {
   var query = Curso.find(function (err, cursos) {
     console.log("Get " + JSON.stringify(cursos));
     res.send(cursos);
@@ -36,7 +41,6 @@ var getCursos = function(req, res, next) {
 };
 
 var putCurso = function(req, res, next) {
-  console.log(req.params);
   Curso.findByIdAndUpdate(req.params._id, { nombre: req.params.nombre }, function (err, curso) {
     res.send(curso);
   });
@@ -46,7 +50,6 @@ var putCurso = function(req, res, next) {
 
 function postCurso(req, res, next) {
   var curso = new Curso();
-  console.log(req.params);
   curso.nombre = req.params.nombre;
 
   curso.save(function () {
@@ -58,6 +61,7 @@ function postCurso(req, res, next) {
 
 server.use(restify.bodyParser());
 
+server.get("/api/cursos/:_id", getCurso);
 server.get("/api/cursos", getCursos);
 server.put("/api/cursos/:_id", putCurso);
 server.post("/api/cursos", postCurso);
