@@ -36,22 +36,7 @@ define [
             layout.formRegion.show formView
 
         listView.on 'itemview:curso:edit', (itemView, curso) ->
-          require ['curso/curso_view'], ->
-            formView = new CursoApp.View.Form(model: curso)
-
-            formView.on 'curso:save', (data) ->
-              curso.save data,
-                wait: true
-                success: ->
-                  cursos.sort()
-                  listView.render()
-                  layout.formRegion.close()
-
-            formView.on 'curso:back', ->
-              layout.formRegion.close()
-
-            MainApp.trigger 'curso:edit', curso.id
-            layout.formRegion.show formView
+          MainApp.trigger 'curso:edit', curso.id
 
         MainApp.mainRegion.show layout
 
