@@ -25,6 +25,6 @@ define ['marionette'], (Marionette) ->
     require ['curso/curso_app'], ->
       Backbone.history.start()
       if Backbone.history.fragment == ''
-        MainApp.trigger 'cursos:list'
+        MainApp.trigger 'curso:list'
 
   return MainApp  # end of define

@@ -41,6 +41,7 @@ define [
 
             formView.on 'curso:save', (data) ->
               curso.save data,
+                wait: true
                 success: ->
                   cursos.sort()
                   listView.render()
@@ -49,9 +50,34 @@ define [
             formView.on 'curso:back', ->
               layout.formRegion.close()
 
+            MainApp.trigger 'curso:edit', curso.id
             layout.formRegion.show formView
 
         MainApp.mainRegion.show layout
+
+      edit: (cursoId) ->
+        curso = new CursoApp.Model.Curso(_id: cursoId)
+        defer = $.Deferred()
+        curso.fetch
+          success: (data) ->
+            defer.resolve(data)
+          error: (data) ->
+            defer.resolve(undefined)
+        $.when(defer.promise()).done (curso) ->
+          formView = new CursoApp.View.Form(model: curso)
+
+          formView.on 'curso:save', (data) ->
+            curso.save data,
+              success: ->
+                MainApp.trigger 'curso:list'
+                MainApp.mainRegion.close()
+
+          formView.on 'curso:back', ->
+            MainApp.trigger 'curso:list'
+            MainApp.mainRegion.close()
+
+          MainApp.mainRegion.show formView
+
     return # end of module
 
   return MainApp.CursoApp.Controller # end of define
