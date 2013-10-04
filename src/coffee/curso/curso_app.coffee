@@ -37,7 +37,7 @@ define [
           MainApp.startSubApp("CursoApp")
           new MainApp.CursoApp.Controller().edit(id)
           return
-        reeturn
+        return
 
     MainApp.on 'curso:list', ->
       Backbone.history.navigate 'cursos'
