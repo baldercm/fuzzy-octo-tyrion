@@ -17,6 +17,7 @@ define ['marionette'], (Marionette) ->
     MainApp.currentApp = currentApp
     if (currentApp)
       currentApp.start(args)
+    return
 
   MainApp.on 'initialize:after', ->
     require ['commons/customValidation'], ->
@@ -26,5 +27,6 @@ define ['marionette'], (Marionette) ->
       Backbone.history.start()
       if Backbone.history.fragment == ''
         MainApp.trigger 'curso:list'
+    return
 
   return MainApp  # end of define

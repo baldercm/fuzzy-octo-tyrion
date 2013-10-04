@@ -28,3 +28,4 @@ require.config
 require ['app'], (App) ->
   'use strict'
   App.start()
+  return

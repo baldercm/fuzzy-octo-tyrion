@@ -18,6 +18,7 @@ define [
           group.find('.help-inline.error-message').remove()
         else
           group.find('.help-block.error-message').remove()
+        return
 
       invalid: (view, attr, error, selector) ->
         control = view.$('[' + selector + '="' + attr + '"]')
@@ -41,6 +42,7 @@ define [
             group.find('.form-control').after('<p class=\'help-block error-message\'></p>')
           target = group.find '.help-block'
           target.text error
+        return
     return
 
   return # end of define

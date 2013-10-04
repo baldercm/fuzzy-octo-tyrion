@@ -18,6 +18,7 @@ define [
         layout.on 'show', ->
           layout.toolbarRegion.show toolbarView
           layout.listRegion.show listView
+          return
 
         toolbarView.on 'curso:new', ->
           require ['curso/curso_view'], ->
@@ -34,11 +35,15 @@ define [
               layout.formRegion.close()
 
             layout.formRegion.show formView
+            return
+          return
 
         listView.on 'itemview:curso:edit', (itemView, curso) ->
           MainApp.trigger 'curso:edit', curso.id
+          return
 
         MainApp.mainRegion.show layout
+        return
 
       edit: (cursoId) ->
         curso = new CursoApp.Model.Curso(_id: cursoId)
@@ -62,6 +67,7 @@ define [
             MainApp.mainRegion.close()
 
           MainApp.mainRegion.show formView
+          return
 
     return # end of module
 

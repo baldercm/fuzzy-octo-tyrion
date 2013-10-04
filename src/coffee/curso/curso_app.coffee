@@ -26,25 +26,32 @@ define [
         require ['curso/curso_controller'], ->
           MainApp.startSubApp("CursoApp")
           new MainApp.CursoApp.Controller().list()
+          return
+        return
       showCurso: ->
         console.log 'TODO Routers.CursoApp.showCurso'
+        return
       editCurso: (id) ->
         console.log 'TODO Routers.CursoApp.editCurso'
         require ['curso/curso_controller'], ->
           MainApp.startSubApp("CursoApp")
           new MainApp.CursoApp.Controller().edit(id)
+          return
+        reeturn
 
     MainApp.on 'curso:list', ->
       Backbone.history.navigate 'cursos'
       API.listCursos()
+      return
 
     MainApp.on 'curso:edit', (id) ->
       Backbone.history.navigate "cursos/#{id}/edit"
       API.editCurso(id)
+      return
 
     MainApp.addInitializer ->
-      new CursoApp.Router
-        controller: API
+      new CursoApp.Router(controller: API)
+      return
 
     return # end of module
 

@@ -24,6 +24,7 @@ define [
       newClicked: (e) ->
         e.preventDefault()
         @trigger 'curso:new'
+        return
 
     class View.Item extends Marionette.ItemView
       template: itemTpl
@@ -34,6 +35,7 @@ define [
       editClicked: (e) ->
         e.preventDefault()
         @trigger 'curso:edit', @model
+        return
 
     class View.List extends Marionette.CompositeView
       template: listTpl
@@ -46,13 +48,16 @@ define [
           childrenContainer.append itemView.el
         else
           childrenContainer.children().eq(index).before itemView.el
+        return
 
     class View.Form extends Marionette.ItemView
       template: formTpl
       initialize: ->
         Backbone.Validation.bind this
+        return
       onClose: ->
         Backbone.Validation.unbind this
+        return
       events:
         'click #save': 'saveClicked'
         'click #back': 'backClicked'
@@ -60,9 +65,11 @@ define [
         e.preventDefault()
         data = Backbone.Syphon.serialize this
         @trigger "curso:save", data
+        return
       backClicked: (e) ->
         e.preventDefault()
         @trigger "curso:back"
+        return
 
     return # end of module
 
