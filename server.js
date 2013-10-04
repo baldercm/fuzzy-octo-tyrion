@@ -1,78 +1,80 @@
-// DEPENDENCIES
-// ============
-var express = require("express"),
-    http = require("http"),
-    restify = require("restify"),
-    mongoose = require("mongoose"),
-    fs = require("fs"),
-    path = require("path");
+var Curso, cursoSchema, express, fs, getCurso, getCursos, http, mongoose, path, port, postCurso, putCurso, restify, server;
 
-var port = process.env.PORT || 8000;
+express = require('express');
 
-// MONGOOSE SERVER CONFIGURATION
-// ====================
+http = require('http');
 
-mongoose.connect("mongodb://localhost/nodejs");
+restify = require('restify');
 
-var cursoSchema = mongoose.Schema({
-  nombre: String
-});
+mongoose = require('mongoose');
 
-var Curso = mongoose.model("Curso", cursoSchema);
+fs = require('fs');
 
-var server = module.exports = restify.createServer();
+path = require('path');
 
-var getCurso = function(req, res, next) {
-  var query = Curso.findById(req.params._id, function (err, curso) {
-    console.log("Get " + JSON.stringify(curso));
-    res.send(curso);
-  });
+port = process.env.PORT || 8000;
 
-  return next();
-};
+server = module.exports = restify.createServer();
 
-var getCursos = function(req, res, next) {
-  var query = Curso.find(function (err, cursos) {
-    console.log("Get " + JSON.stringify(cursos));
-    res.send(cursos);
-  });
-
-  return next();
-};
-
-var putCurso = function(req, res, next) {
-  Curso.findByIdAndUpdate(req.params._id, { nombre: req.params.nombre }, function (err, curso) {
-    res.send(curso);
-  });
-
-  return next();
-};
-
-function postCurso(req, res, next) {
-  var curso = new Curso();
+postCurso = function(req, res, next) {
+  var curso;
+  curso = new Curso();
   curso.nombre = req.params.nombre;
-
-  curso.save(function () {
-    res.send(curso);
+  curso.save(function() {
+    return res.send(curso);
   });
+  return next();
+};
 
+getCurso = function(req, res, next) {
+  var query;
+  query = Curso.findById(req.params._id, function(err, curso) {
+    console.log('Get ' + JSON.stringify(curso));
+    return res.send(curso);
+  });
+  return next();
+};
+
+getCursos = function(req, res, next) {
+  var query;
+  query = Curso.find(function(err, cursos) {
+    console.log('Get ' + JSON.stringify(cursos));
+    return res.send(cursos);
+  });
+  return next();
+};
+
+putCurso = function(req, res, next) {
+  Curso.findByIdAndUpdate(req.params._id, {
+    nombre: req.params.nombre
+  }, function(err, curso) {
+    return res.send(curso);
+  });
   return next();
 };
 
 server.use(restify.bodyParser());
 
-server.get("/api/cursos/:_id", getCurso);
-server.get("/api/cursos", getCursos);
-server.put("/api/cursos/:_id", putCurso);
-server.post("/api/cursos", postCurso);
+server.use(restify.gzipResponse());
+
+server.get('/api/cursos/:_id', getCurso);
+
+server.get('/api/cursos', getCursos);
+
+server.put('/api/cursos/:_id', putCurso);
+
+server.post('/api/cursos', postCurso);
+
 server.get(/\/?.*/, restify.serveStatic({
-  directory: "./public",
-  default: "index.html",
+  directory: './public',
+  "default": 'index.html',
   maxAge: 0
 }));
 
-// SERVER
-// ======
-// server.listen(port, function() {
-//   console.log("%s listening at %s", server.name, server.url);
-// });
+mongoose.connect('mongodb://localhost/nodejs');
+
+cursoSchema = mongoose.Schema({
+  nombre: String
+});
+
+Curso = mongoose.model('Curso', cursoSchema);
