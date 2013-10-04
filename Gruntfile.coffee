@@ -10,7 +10,7 @@ module.exports = (grunt) ->
         options:
           bare: true
         files:
-          'server.js': 'server.coffee'
+          'build/server.js': 'server.coffee'
       build:
         options:
           bare: true
@@ -147,7 +147,7 @@ module.exports = (grunt) ->
   grunt.registerTask 'optimize',  ['test', 'requirejs']
 
   grunt.registerTask 'server', 'Start a restify server', ->
-    require('./server.js').listen 3000, ->
+    require('./build/server.js').listen 3000, ->
       grunt.log.writeln 'Started restify server on port 3000'
 
   grunt.registerTask 'run', ['build', 'server', 'watch']
