@@ -1,6 +1,6 @@
 define [
-  'backbone.wreqr'
-], (Wreqr) ->
+  'app'
+], (MainApp) ->
   'use strict'
 
-  return new Wreqr.EventAggregator()
+  return MainApp.vent
