@@ -7,7 +7,8 @@ define ['marionette'], (Marionette) ->
     mainRegion: '#main-region'
 
   mainApp.startSubApp = (newAppName, options) ->
-    newApp = if newAppName
+    newApp =
+      if newAppName
       then mainApp.module newAppName
       else null
 
@@ -25,11 +26,13 @@ define ['marionette'], (Marionette) ->
   mainApp.on 'initialize:after', ->
     require ['commons/customValidation'], ->
       mainApp.trigger 'backbone:validation:custom:applyCallbacks'
+      return
 
     require ['curso/curso_app'], ->
       Backbone.history.start()
       if Backbone.history.fragment == ''
         mainApp.trigger 'curso:list'
+      return
     return
 
   return mainApp  # end of define
