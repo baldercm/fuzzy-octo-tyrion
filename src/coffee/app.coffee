@@ -1,7 +1,10 @@
-define ['marionette'], (Marionette) ->
+define [
+  'marionette'
+  'vent'
+], (Marionette, vent) ->
   'use strict'
 
-  mainApp = new Marionette.Application()
+  mainApp = new Marionette.Application(vent: vent)
 
   mainApp.addRegions
     mainRegion: '#main-region'
@@ -28,11 +31,14 @@ define ['marionette'], (Marionette) ->
       mainApp.trigger 'backbone:validation:custom:applyCallbacks'
       return
 
-    require ['curso/curso_app'], ->
+    require ['home/home_app'], ->
       Backbone.history.start()
       if Backbone.history.fragment == ''
-        mainApp.trigger 'curso:list'
+        vent.trigger 'home'
       return
+
+    require ['curso/curso_app']
+
     return
 
   return mainApp  # end of define

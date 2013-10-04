@@ -11,7 +11,6 @@ define [
       return
 
     welcome: ->
-      console.log 'TODO HomeController.welcome'
       homeView = new HomeView()
       @mainRegion.show homeView
       return
