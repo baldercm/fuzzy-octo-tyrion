@@ -115,6 +115,9 @@ module.exports = (grunt) ->
       gruntfile:
         files: 'Gruntfile.coffee'
         tasks: ['build']
+      server:
+        files: 'server.coffee'
+        tasks: ['coffee:server', 'build', 'server']
 
     clean:
       build:
