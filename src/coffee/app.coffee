@@ -1,32 +1,35 @@
 define ['marionette'], (Marionette) ->
   'use strict'
 
-  MainApp = new Marionette.Application()
+  mainApp = new Marionette.Application()
 
-  MainApp.addRegions
+  mainApp.addRegions
     mainRegion: '#main-region'
 
-  MainApp.startSubApp = (appName, args) ->
-    currentApp = if appName then MainApp.module(appName) else null
-    if (MainApp.currentApp == currentApp)
+  mainApp.startSubApp = (newAppName, options) ->
+    newApp = if newAppName
+      then mainApp.module newAppName
+      else null
+
+    if mainApp.currentApp == newApp
       return
 
-    if (MainApp.currentApp)
-      MainApp.currentApp.stop()
+    if mainApp.currentApp
+      mainApp.currentApp.stop()
 
-    MainApp.currentApp = currentApp
-    if (currentApp)
-      currentApp.start(args)
+    mainApp.currentApp = newApp
+    if newApp
+      newApp.start options
     return
 
-  MainApp.on 'initialize:after', ->
+  mainApp.on 'initialize:after', ->
     require ['commons/customValidation'], ->
-      MainApp.trigger 'backbone:validation:custom:applyCallbacks'
+      mainApp.trigger 'backbone:validation:custom:applyCallbacks'
 
     require ['curso/curso_app'], ->
       Backbone.history.start()
       if Backbone.history.fragment == ''
-        MainApp.trigger 'curso:list'
+        mainApp.trigger 'curso:list'
     return
 
-  return MainApp  # end of define
+  return mainApp  # end of define
