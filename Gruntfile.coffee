@@ -4,15 +4,19 @@ module.exports = (grunt) ->
     jshint:
       build: ["build/js/**/*.js"]
       test:  ["build-test/js/**/*.js"]
-    
+
     coffee:
       build:
+        options:
+          bare: true
         expand: true
         cwd: "src/coffee"
         src: ["**/*.coffee"]
         dest: "build/js"
         ext: ".js"
       test:
+        options:
+          bare: true
         expand: true
         cwd: "test/coffee"
         src: ["**/*.coffee"]
@@ -121,7 +125,7 @@ module.exports = (grunt) ->
             requireConfigFile: "build/js/main.js"
 
   grunt.registerTask "build", ["clean:build", "coffee:build", "jshint:build", "copy:build"]
-  
+
   grunt.registerTask "test",  ["build", "clean:test", "coffee:test", "jshint:test", "connect", "jasmine"]
 
   grunt.registerTask "optimize",  ["test", "requirejs"]
@@ -131,7 +135,7 @@ module.exports = (grunt) ->
     require("./server.js").listen 3000
 
   grunt.registerTask "run", ["build", "server", "watch"]
-  
+
   grunt.loadNpmTasks "grunt-contrib-coffee"
   grunt.loadNpmTasks "grunt-contrib-requirejs"
   grunt.loadNpmTasks "grunt-contrib-copy"
