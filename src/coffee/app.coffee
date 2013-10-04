@@ -37,7 +37,7 @@ define [
         vent.trigger 'home'
       return
 
-    require ['curso/curso_app']
+    require ['curso/curso_app', 'grupo/grupo_app']
 
     return
 
